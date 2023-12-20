@@ -30,6 +30,17 @@ $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
 $email = mysqli_real_escape_string($this->db->link, $data['email']);
 $pass = mysqli_real_escape_string($this->db->link, md5($data['pass']));
 
+// Validate password strength
+$uppercase = preg_match('@[A-Z]@', $pass);
+$lowercase = preg_match('@[a-z]@', $pass);
+$number    = preg_match('@[0-9]@', $pass);
+$specialChars = preg_match('@[^\w]@', $pass);
+
+if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pass) < 8) {
+    $msg = "<span class='error'>Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.</span>";
+	return $msg;
+}
+
 
 if ($name == "" || $address == "" || $city == "" || $country == "" || $zip == "" || $phone == "" || $email == "" || $pass == "") {
 	
@@ -74,6 +85,8 @@ if ($result != false) {
 	Session::set("cuslogin",true);
 	Session::set("cmrId",$value['id']);
 	Session::set("cmrName",$value['name']);
+	$_SESSION['start'] = time(); 
+	$_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
 	header("Location:cart.php");
 
 }else{

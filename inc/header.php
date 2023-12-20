@@ -1,7 +1,7 @@
 <?php
 
 include 'lib/Session.php';
-Session::init();
+	Session::init();
 
 include 'lib/Database.php';
 include 'helpers/Formate.php';
@@ -23,6 +23,8 @@ $cmr = new Customer();
   header("Pragma: no-cache"); 
   header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
   header("Cache-Control: max-age=2592000");
+  
+
 ?>
 
 
@@ -116,6 +118,15 @@ if (isset($_GET['cid'])) {
 	Session::destroy();
 }
 
+$now = time(); 
+
+$expire = Session::get("expire");
+if($expire){
+	if($now > $expire){
+		session_destroy();
+		echo "Your session has expired! <a href='http://127.0.0.1/onlineshop/login.php'>Login here</a>";
+	}
+}
 
  ?>
 
