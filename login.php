@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         	<p>Sign in with the form below.</p>
         	<form action="" method="post">
                 	<input name="email" placeholder="Email" type="text"/>
-                    <input name="pass" placeholder="Password" type="password"/>
+                    <input name="pass" placeholder="password" type="password"/>
                     <div class="buttons"><div><button class="grey" name="login">Sign In</button></div></div>
                       </div>
                  </form>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
 		          </div>
 				  
 				  <div>
-					<input type="text" name="pass" placeholder="Password"/>
+					<input type="password" name="pass" placeholder="Password"/>
 				</div>
 		    	</td>
 		    </tr> 

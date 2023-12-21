@@ -24,7 +24,7 @@ $cmr = new Customer();
   header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
   header("Cache-Control: max-age=2592000");
   
-
+  
 ?>
 
 
@@ -115,8 +115,14 @@ if (isset($_GET['cid'])) {
 	$cmrId = Session::get("cmrId");
 	$delData = $ct->delCustomerCart();
 	$delComp = $pd->delCompareData($cmrId);
+	$log  = "Logged out: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+	"User:".Session::get("cmrName").PHP_EOL.
+  "-------------------------".PHP_EOL;
+  file_put_contents('./log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
 	Session::destroy();
 }
+
+
 
 $now = time(); 
 
@@ -124,6 +130,7 @@ $expire = Session::get("expire");
 if($expire){
 	if($now > $expire){
 		session_destroy();
+
 		echo "Your session has expired! <a href='http://127.0.0.1/onlineshop/login.php'>Login here</a>";
 	}
 }

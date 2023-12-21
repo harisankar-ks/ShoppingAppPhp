@@ -28,7 +28,7 @@ $country = mysqli_real_escape_string($this->db->link, $data['country']);
 $zip = mysqli_real_escape_string($this->db->link, $data['zip']);
 $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
 $email = mysqli_real_escape_string($this->db->link, $data['email']);
-$pass = mysqli_real_escape_string($this->db->link, md5($data['pass']));
+$pass = mysqli_real_escape_string($this->db->link, $data['pass']);
 
 // Validate password strength
 $uppercase = preg_match('@[A-Z]@', $pass);
@@ -55,7 +55,7 @@ if ($name == "" || $address == "" || $city == "" || $country == "" || $zip == ""
 	return $msg;
   }else{
 
-
+	$pass=md5($pass);
   	 $query = "INSERT INTO tbl_customer(name,address,city,country,zip,phone,email,pass) VALUES('$name','$address','$city','$country','$zip','$phone','$email','$pass')";
 
 	 $inserted_row = $this->db->insert($query);
@@ -76,6 +76,7 @@ if (empty($email) || empty($pass)) {
 $msg = "<span class='error'>Fields must not be empty !</span>";
 	return $msg;
 }
+$pass=md5($pass);
 $query = "SELECT * FROM tbl_customer WHERE email = '$email' AND pass = '$pass'";
 
 echo $query;
@@ -87,6 +88,11 @@ if ($result != false) {
 	Session::set("cmrName",$value['name']);
 	$_SESSION['start'] = time(); 
 	$_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
+	$log  = "Logged in: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+	"User:".$value['name'].PHP_EOL.
+	"-------------------------".PHP_EOL;
+	file_put_contents('./log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+
 	header("Location:cart.php");
 
 }else{

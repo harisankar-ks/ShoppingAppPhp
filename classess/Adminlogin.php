@@ -47,7 +47,11 @@ if (empty($adminUser) ||empty($adminPassword) ) {
 				Session::set("adminId",$value['adminId']);
 				Session::set("adminUser",$value['adminUser']);
 				Session::set("adminName",$value['adminName']);
-
+				
+				$log  = "Admin Logged in: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+				"User:".$value['adminUser'].PHP_EOL.
+				"-------------------------".PHP_EOL;
+				file_put_contents('../log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
 				header("Location:dashboard.php");
 			} else{
 				$loginmsg = "Username or Password not match !";

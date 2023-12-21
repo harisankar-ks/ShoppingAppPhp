@@ -77,11 +77,15 @@ $fm = new Format();
                         <img src="img/img-profile.jpg" alt="Profile Pic" /></div>
 
 <?php
-
+ 
 if (isset($_GET['action']) && $_GET['action'] == "logout") {
-   
+        $cmrId = Session::get("adminId");
+        $log  = "Admin Logged out: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+        "User:".Session::get("adminUser").PHP_EOL.
+      "-------------------------".PHP_EOL;
+      file_put_contents('../log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+        Session::destroy();
 
-Session::destroy();
 }
 
 
