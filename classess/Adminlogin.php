@@ -38,7 +38,6 @@ if (empty($adminUser) ||empty($adminPassword) ) {
 
 			$query = "SELECT * FROM tbl_admin WHERE adminUser = '$adminUser'
 			AND adminPassword = '$adminPassword'";
-echo $query;
 			$result = $this->db->select($query);
 
 			if ($result != false) {

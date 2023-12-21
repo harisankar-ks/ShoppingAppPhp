@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     		}
     		 ?>
     		<h3>Register New Account</h3>
-    		<form action="" method="post">
+    		<form action="" method="post" >
 		   			 <table>
 		   				<tbody>
 						<tr>
@@ -100,3 +100,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     </div>
  </div>
 <?php include 'inc/footer.php';?>
+

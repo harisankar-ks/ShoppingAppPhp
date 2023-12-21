@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$adminUser = $_POST['adminUser'];
 	$adminPassword =$_POST['adminPassword'];
 
-	$loginchk = $al->adminlogin($adminUser,$adminPassword);
+	$loginchk = $al->adminlogin($adminUser,md5($adminPassword));
 }
 ?>
 
