@@ -27,7 +27,12 @@ private $fm;
 		$this->fm = new Format();
 	}
 
-	public function adminlogin($adminUser,$adminPassword){
+	public function adminlogin($adminUser,$adminPassword) 
+
+	
+
+
+	{
 
 if (empty($adminUser) ||empty($adminPassword) ) {
 	
