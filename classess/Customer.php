@@ -50,6 +50,15 @@ if ($name == "" || $address == "" || $city == "" || $country == "" || $zip == ""
 
   $mailquery = "SELECT * FROM tbl_customer WHERE email = '$email' LIMIT 1";
   $mailchk = $this->db->select($mailquery);
+  $email  = $_POST['email'];
+$emailB = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+if (filter_var($emailB, FILTER_VALIDATE_EMAIL) === false ||
+    $emailB != $email
+) {
+    echo "This email adress isn't valid!";
+    exit(0);
+}
   if ($mailchk != false) {
   	$msg = "<span class='error'>Email already exist !</span>";
 	return $msg;
@@ -67,6 +76,7 @@ if ($name == "" || $address == "" || $city == "" || $country == "" || $zip == ""
 				return $msg;
 		}
   }
+  
 }
 
 public function customerLogin($data){
@@ -79,7 +89,6 @@ $msg = "<span class='error'>Fields must not be empty !</span>";
 $pass=md5($pass);
 $query = "SELECT * FROM tbl_customer WHERE email = '$email' AND pass = '$pass'";
 
-echo $query;
 $result = $this->db->select($query);
 if ($result != false) {
 	$value = $result->fetch_assoc();
@@ -87,13 +96,14 @@ if ($result != false) {
 	Session::set("cmrId",$value['id']);
 	Session::set("cmrName",$value['name']);
 	$_SESSION['start'] = time(); 
-	$_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
+	$_SESSION['expire'] = $_SESSION['start'] + (1 * 60);
 	$log  = "Logged in: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
 	"User:".$value['name'].PHP_EOL.
 	"-------------------------".PHP_EOL;
 	file_put_contents('./log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
 
 	header("Location:cart.php");
+	
 
 }else{
 	$msg = "<span class='error'>Email or Password not matched !</span>";

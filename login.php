@@ -109,7 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                             </div>
 
                             <div>
-                                <input type="password" name="pass" placeholder="Password"/>
+                            <input type="password" name="pass" placeholder="Password" style="font-size: 12px; color: #444; padding: 8px; outline: none; margin: 5px 0; width: 340px;" />
+
                             </div>
                         </td>
                     </tr> 
